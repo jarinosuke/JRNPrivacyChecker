@@ -11,11 +11,12 @@
 static JRNPrivacyChecker *defaultChecker;
 
 @interface JRNPrivacyChecker()
-@property (nonatomic, strong) CLLocationManager *locationManager;
+//@property (nonatomic, strong) CLLocationManager *locationManager;
+//@property (nonatomic, strong) EKEventStore *eventStore;
+//@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+//@property (nonatomic, assign) ABAddressBookRef addressBook;
+
 @property (nonatomic, strong) ACAccountStore *accountStore;
-@property (nonatomic, strong) EKEventStore *eventStore;
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
-@property (nonatomic, assign) ABAddressBookRef addressBook;
 @end
 
 @implementation JRNPrivacyChecker
@@ -43,54 +44,173 @@ static JRNPrivacyChecker *defaultChecker;
 #pragma mark -
 #pragma mark - Photo
 
-- (ALAuthorizationStatus)checkPhotoAccessAuthorization
+- (ALAuthorizationStatus)photoAccessAuthorization
 {
     return [ALAssetsLibrary authorizationStatus];
+}
+
+- (void)checkPhotoAccess
+{
+    [self checkPhotoAccess:nil];
+}
+
+- (void)checkPhotoAccess:(JRNPrivacyCheckerPhotoHandler)handler
+{
+    if ( handler ) {
+        handler([self photoAccessAuthorization]);
+        return;
+    }
+    
+    if ( self.checkPhotoHandler ) {
+        self.checkPhotoHandler([self photoAccessAuthorization]);
+    }
 }
 
 #pragma mark -
 #pragma mark - AddressBook
 
-- (ABAuthorizationStatus)checkAddressBookAuthorization
+- (ABAuthorizationStatus)addressBookAuthorization
 {
     return ABAddressBookGetAuthorizationStatus();
 }
 
-#pragma mark -
-#pragma mark - Location
-
-- (CLAuthorizationStatus)checkLocationAuthorization
+- (void)checkAddressBookAccess
 {
-    return [CLLocationManager authorizationStatus];
+    [self checkAddressBookAccess:nil];
+}
+
+- (void)checkAddressBookAccess:(JRNPrivacyCheckerAddressBookHandler)handler
+{
+    if ( handler ) {
+        handler([self addressBookAuthorization]);
+        return;
+    }
+    
+    if ( self.checkAddressBookHandler ) {
+        self.checkAddressBookHandler([self addressBookAuthorization]);
+    }
 }
 
 #pragma mark -
 #pragma mark - Location
 
-- (EKAuthorizationStatus)checkEventAuthorizationForType:(EKEntityType)type
+- (CLAuthorizationStatus)locationAuthorization
+{
+    return [CLLocationManager authorizationStatus];
+}
+
+- (void)checkLocationAccess
+{
+    [self checkLocationAccess:nil];
+}
+
+- (void)checkLocationAccess:(JRNPrivacyCheckerLocationHandler)handler
+{
+    if ( handler ) {
+        handler([self locationAuthorization]);
+        return;
+    }
+    
+    if ( self.checkLocationHandler ) {
+        self.checkLocationHandler([self locationAuthorization]);
+    }
+}
+
+#pragma mark -
+#pragma mark - Event
+
+- (EKAuthorizationStatus)eventAuthorizationForType:(EKEntityType)type
 {
     return [EKEventStore authorizationStatusForEntityType:type];
+}
+
+- (void)checkEventAccess:(EKEntityType)type
+{
+    [self checkEventAccess:type handler:nil];
+}
+
+- (void)checkEventAccess:(EKEntityType)type handler:(JRNPrivacyCheckerEventHandler)handler
+{
+    if ( handler ) {
+        handler(type, [self eventAuthorizationForType:type]);
+        return;
+    }
+    
+    if ( self.checkEventHandler ) {
+        self.checkEventHandler(type, [self eventAuthorizationForType:type]);
+    }
 }
 
 #pragma mark -
 #pragma mark - Social
 
-- (BOOL)checkTwitterAccessGranted
+- (BOOL)twitterAccessGranted
 {
-    return [self checkSocialAccountAccessGranted:ACAccountTypeIdentifierTwitter];
+    return [self socialAccountAccessGranted:ACAccountTypeIdentifierTwitter];
 }
 
-- (BOOL)checkFacebookAccessGranted
+- (void)checkTwitterAccess
 {
-    return [self checkSocialAccountAccessGranted:ACAccountTypeIdentifierFacebook];
+    [self checkTwitterAccess:nil];
 }
 
-- (BOOL)checkSinaWeiboAccessGranted
+- (void)checkTwitterAccess:(JRNPrivacyCheckerGrantedHandler)handler
 {
-    return [self checkSocialAccountAccessGranted:ACAccountTypeIdentifierSinaWeibo];
+    if ( handler ) {
+        handler([self socialAccountAccessGranted:ACAccountTypeIdentifierTwitter]);
+        return;
+    }
+    
+    if ( self.checkTwitterHandler ) {
+        self.checkTwitterHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierTwitter]);
+    }
 }
 
-- (BOOL)checkSocialAccountAccessGranted:(NSString *)accountTypeIdentifier
+- (BOOL)facebookAccessGranted
+{
+    return [self socialAccountAccessGranted:ACAccountTypeIdentifierFacebook];
+}
+
+- (void)checkFacebookAccess
+{
+    [self checkFacebookAccess:nil];
+}
+
+- (void)checkFacebookAccess:(JRNPrivacyCheckerGrantedHandler)handler
+{
+    if ( handler ) {
+        handler([self socialAccountAccessGranted:ACAccountTypeIdentifierFacebook]);
+        return;
+    }
+    
+    if ( self.checkFacebookHandler ) {
+        self.checkFacebookHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierFacebook]);
+    }
+}
+
+- (BOOL)sinaWeiboAccessGranted
+{
+    return [self socialAccountAccessGranted:ACAccountTypeIdentifierSinaWeibo];
+}
+
+- (void)checkSinWeiboAccess
+{
+    [self checkSinWeiboAccess:nil];
+}
+
+- (void)checkSinWeiboAccess:(JRNPrivacyCheckerGrantedHandler)handler
+{
+    if ( handler ) {
+        handler([self socialAccountAccessGranted:ACAccountTypeIdentifierSinaWeibo]);
+        return;
+    }
+    
+    if ( self.checkSinaWeiboHandler ) {
+        self.checkSinaWeiboHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierSinaWeibo]);
+    }
+}
+
+- (BOOL)socialAccountAccessGranted:(NSString *)accountTypeIdentifier
 {
     ACAccountType *socialAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:accountTypeIdentifier];
     
@@ -104,9 +224,26 @@ static JRNPrivacyChecker *defaultChecker;
 #pragma mark -
 #pragma mark - Ad Tracking
 
-- (BOOL)checkAdvertisingTrackingGranted
+- (BOOL)advertisingTrackingGranted
 {
     return [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
+}
+
+- (void)checkAdvertisingTrackingAccess
+{
+    [self checkAdvertisingTrackingAccess:nil];
+}
+
+- (void)checkAdvertisingTrackingAccess:(JRNPrivacyCheckerGrantedHandler)handler
+{
+    if ( handler ) {
+        handler([self advertisingTrackingGranted]);
+        return;
+    }
+    
+    if ( self.checkAdvertisingTrackingHandler ) {
+        self.checkAdvertisingTrackingHandler([self advertisingTrackingGranted]);
+    }
 }
 
 @end
