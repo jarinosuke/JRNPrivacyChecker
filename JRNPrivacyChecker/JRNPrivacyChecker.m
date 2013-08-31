@@ -61,8 +61,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkPhotoHandler ) {
-        self.checkPhotoHandler([self photoAccessAuthorization]);
+    if ( self.defaultCheckPhotoHandler ) {
+        self.defaultCheckPhotoHandler([self photoAccessAuthorization]);
     }
 }
 
@@ -86,8 +86,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkAddressBookHandler ) {
-        self.checkAddressBookHandler([self addressBookAuthorization]);
+    if ( self.defaultCheckAddressBookHandler ) {
+        self.defaultCheckAddressBookHandler([self addressBookAuthorization]);
     }
 }
 
@@ -111,8 +111,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkLocationHandler ) {
-        self.checkLocationHandler([self locationAuthorization]);
+    if ( self.defaultCheckLocationHandler ) {
+        self.defaultCheckLocationHandler([self locationAuthorization]);
     }
 }
 
@@ -136,8 +136,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkEventHandler ) {
-        self.checkEventHandler(type, [self eventAuthorizationForType:type]);
+    if ( self.defaultCheckEventHandler ) {
+        self.defaultCheckEventHandler(type, [self eventAuthorizationForType:type]);
     }
 }
 
@@ -161,8 +161,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkTwitterHandler ) {
-        self.checkTwitterHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierTwitter]);
+    if ( self.defaultCheckTwitterHandler ) {
+        self.defaultCheckTwitterHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierTwitter]);
     }
 }
 
@@ -183,8 +183,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkFacebookHandler ) {
-        self.checkFacebookHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierFacebook]);
+    if ( self.defaultCheckFacebookHandler ) {
+        self.defaultCheckFacebookHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierFacebook]);
     }
 }
 
@@ -205,8 +205,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkSinaWeiboHandler ) {
-        self.checkSinaWeiboHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierSinaWeibo]);
+    if ( self.defaultCheckSinaWeiboHandler ) {
+        self.defaultCheckSinaWeiboHandler([self socialAccountAccessGranted:ACAccountTypeIdentifierSinaWeibo]);
     }
 }
 
@@ -241,8 +241,8 @@ static JRNPrivacyChecker *defaultChecker;
         return;
     }
     
-    if ( self.checkAdvertisingTrackingHandler ) {
-        self.checkAdvertisingTrackingHandler([self advertisingTrackingGranted]);
+    if ( self.defaultCheckAdvertisingTrackingHandler ) {
+        self.defaultCheckAdvertisingTrackingHandler([self advertisingTrackingGranted]);
     }
 }
 

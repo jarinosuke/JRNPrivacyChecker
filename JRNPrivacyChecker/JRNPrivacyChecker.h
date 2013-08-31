@@ -22,14 +22,14 @@ typedef void (^JRNPrivacyCheckerEventHandler)(EKEntityType type, EKAuthorization
 typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 
 @interface JRNPrivacyChecker : NSObject
-@property (nonatomic, copy) JRNPrivacyCheckerPhotoHandler checkPhotoHandler;
-@property (nonatomic, copy) JRNPrivacyCheckerAddressBookHandler checkAddressBookHandler;
-@property (nonatomic, copy) JRNPrivacyCheckerLocationHandler checkLocationHandler;
-@property (nonatomic, copy) JRNPrivacyCheckerEventHandler checkEventHandler;
-@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler checkTwitterHandler;
-@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler checkFacebookHandler;
-@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler checkSinaWeiboHandler;
-@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler checkAdvertisingTrackingHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerPhotoHandler defaultCheckPhotoHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerAddressBookHandler defaultCheckAddressBookHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerLocationHandler defaultCheckLocationHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerEventHandler defaultCheckEventHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckTwitterHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckFacebookHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckSinaWeiboHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckAdvertisingTrackingHandler;
 
 + (JRNPrivacyChecker *)defaultChecker;
 
