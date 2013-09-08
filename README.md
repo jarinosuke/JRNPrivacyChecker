@@ -26,7 +26,7 @@ files for sample application which lists scheduled local notifications.
 - 2.Import JRNPrivacyChecker.h
 
 ```objectivec
-#import "JRNLocalNotificationCenter.h"
+#import "JRNPrivacyChecker.h"
 ```
 
 - check Photo access.
