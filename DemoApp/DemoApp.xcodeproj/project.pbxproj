@@ -25,6 +25,7 @@
 		2B5CB4C417D1410C002F45B5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5CB4C317D1410C002F45B5 /* Accounts.framework */; };
 		2B5CB4C617D14143002F45B5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5CB4C517D14143002F45B5 /* AdSupport.framework */; };
 		2B5CB4C817D14153002F45B5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5CB4C717D14153002F45B5 /* AssetsLibrary.framework */; };
+		2BC2A8A817F65B14009AA64A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC2A8A717F65B14009AA64A /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		2B5CB4C317D1410C002F45B5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		2B5CB4C517D14143002F45B5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		2B5CB4C717D14153002F45B5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2BC2A8A717F65B14009AA64A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BC2A8A817F65B14009AA64A /* AVFoundation.framework in Frameworks */,
 				2B5CB4C817D14153002F45B5 /* AssetsLibrary.framework in Frameworks */,
 				2B5CB4C617D14143002F45B5 /* AdSupport.framework in Frameworks */,
 				2B5CB4C417D1410C002F45B5 /* Accounts.framework in Frameworks */,
@@ -95,6 +98,7 @@
 		2B5CB49517D13EB8002F45B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2BC2A8A717F65B14009AA64A /* AVFoundation.framework */,
 				2B5CB4C717D14153002F45B5 /* AssetsLibrary.framework */,
 				2B5CB4C517D14143002F45B5 /* AdSupport.framework */,
 				2B5CB4C317D1410C002F45B5 /* Accounts.framework */,
@@ -338,6 +342,7 @@
 				2B5CB4B817D13EB8002F45B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

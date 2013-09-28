@@ -14,6 +14,7 @@
 #import <AdSupport/AdSupport.h>
 #import <CoreLocation/CoreLocation.h>
 #import <EventKit/EventKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 typedef void (^JRNPrivacyCheckerPhotoHandler)(ALAuthorizationStatus authorizationStatus);
 typedef void (^JRNPrivacyCheckerAddressBookHandler)(ABAuthorizationStatus authorizationStatus);
@@ -30,6 +31,7 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckFacebookHandler;
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckSinaWeiboHandler;
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckAdvertisingTrackingHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckMicrophoneHandler;
 
 + (JRNPrivacyChecker *)defaultChecker;
 
@@ -72,5 +74,8 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 - (BOOL)advertisingTrackingGranted;
 - (void)checkAdvertisingTrackingAccess;
 - (void)checkAdvertisingTrackingAccess:(JRNPrivacyCheckerGrantedHandler)handler;
+
+//Microphone
+- (void)checkMicrophoneAccess:(JRNPrivacyCheckerGrantedHandler)handler;
 
 @end

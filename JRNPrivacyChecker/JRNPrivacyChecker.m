@@ -246,4 +246,43 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
+#pragma mark -
+#pragma mark - Microphone
+
+- (void)checkMicrophoneAccess:(JRNPrivacyCheckerGrantedHandler)handler
+{
+    AVAudioSession *audioSession = [[AVAudioSession alloc] init];
+    
+    if ( [audioSession respondsToSelector:@selector(requestRecordPermission:)] ) {
+        /*
+         Because this method is synchronous, it is being wrapped in a dispatch block to avoid blocking the main thread.
+        */
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [audioSession requestRecordPermission:^(BOOL granted) {
+                if ( handler ) {
+                    handler(granted);
+                    return;
+                }
+                
+                if ( self.defaultCheckMicrophoneHandler ) {
+                    self.defaultCheckMicrophoneHandler(granted);
+                }
+            }];
+        });
+    } else {
+        NSError *error;
+        [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+        
+        if ( handler ) {
+            handler(YES);
+            return;
+        }
+        
+        if ( self.defaultCheckMicrophoneHandler ) {
+            self.defaultCheckMicrophoneHandler(YES);
+        }
+    }
+}
+
+
 @end
