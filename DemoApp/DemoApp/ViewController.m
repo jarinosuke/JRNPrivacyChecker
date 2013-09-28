@@ -188,6 +188,21 @@
     }];
 }
 
+- (IBAction)microphoneButtonTapped:(id)sender
+{
+    [[JRNPrivacyChecker defaultChecker] checkMicrophoneAccess:^(BOOL isGranted) {
+        NSString *title = @"Microphone";
+        NSString *message;
+        if ( isGranted ) {
+            message = @"Granted";
+        } else {
+            message = @"Not Granted";
+        }
+        
+        [self showAlertWithTitle:title message:message];
+    }];
+}
+
 #pragma mark -
 #pragma mark - Alert
 
