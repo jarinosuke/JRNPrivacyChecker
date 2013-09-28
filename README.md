@@ -12,6 +12,15 @@
 - request authorization for each privacy settings.
 - added new privacy settings in iOS 7.
 
+## Supporting privacy
+- Photos
+- AddressBook
+- Location
+- Event(Calendar, Remindars)
+- Social(Twitter, Facebook, SinaWeibo)
+- Ad Tracking
+- Microphone
+
 ## Files
 
 - `JRNPrivacyChecker/`  
