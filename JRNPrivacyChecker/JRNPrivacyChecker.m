@@ -17,6 +17,7 @@ static JRNPrivacyChecker *defaultChecker;
 //@property (nonatomic, assign) ABAddressBookRef addressBook;
 
 @property (nonatomic, strong) ACAccountStore *accountStore;
+@property (nonatomic, strong) CBCentralManager *bluetoothCentralManager;
 @end
 
 @implementation JRNPrivacyChecker
@@ -39,6 +40,14 @@ static JRNPrivacyChecker *defaultChecker;
         _accountStore = [ACAccountStore new];
     }
     return _accountStore;
+}
+
+- (CBCentralManager *)bluetoothCentralManager
+{
+    if ( !_bluetoothCentralManager ) {
+        _bluetoothCentralManager = [CBCentralManager new];
+    }
+    return _bluetoothCentralManager;
 }
 
 #pragma mark -
@@ -281,6 +290,31 @@ static JRNPrivacyChecker *defaultChecker;
         if ( self.defaultCheckMicrophoneHandler ) {
             self.defaultCheckMicrophoneHandler(YES);
         }
+    }
+}
+
+#pragma mark -
+#pragma mark - Bluetooth
+
+- (CBCentralManagerState)bluetoothAuthorization
+{
+    return [self.bluetoothCentralManager state];
+}
+
+- (void)checkBluetoothAccess
+{
+    [self checkBluetoothAccess:nil];
+}
+
+- (void)checkBluetoothAccess:(JRNPrivacyCheckerBluetoothHandler)handler
+{
+    if ( handler ) {
+        handler([self bluetoothAuthorization]);
+        return;
+    }
+    
+    if ( self.defaultCheckBluetoothHandler ) {
+        self.defaultCheckBluetoothHandler([self bluetoothAuthorization]);
     }
 }
 

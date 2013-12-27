@@ -15,11 +15,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import <EventKit/EventKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 typedef void (^JRNPrivacyCheckerPhotoHandler)(ALAuthorizationStatus authorizationStatus);
 typedef void (^JRNPrivacyCheckerAddressBookHandler)(ABAuthorizationStatus authorizationStatus);
 typedef void (^JRNPrivacyCheckerLocationHandler)(CLAuthorizationStatus authorizationStatus);
 typedef void (^JRNPrivacyCheckerEventHandler)(EKEntityType type, EKAuthorizationStatus authorizationStatus);
+typedef void (^JRNPrivacyCheckerBluetoothHandler)(CBCentralManagerState authorizationState);
 typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 
 @interface JRNPrivacyChecker : NSObject
@@ -32,6 +34,7 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckSinaWeiboHandler;
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckAdvertisingTrackingHandler;
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckMicrophoneHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerBluetoothHandler defaultCheckBluetoothHandler;
 
 + (JRNPrivacyChecker *)defaultChecker;
 
@@ -69,7 +72,6 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 - (void)checkSinWeiboAccess;
 - (void)checkSinWeiboAccess:(JRNPrivacyCheckerGrantedHandler)handler;
 
-
 //Ad Tracking
 - (BOOL)advertisingTrackingGranted;
 - (void)checkAdvertisingTrackingAccess;
@@ -78,4 +80,8 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 //Microphone
 - (void)checkMicrophoneAccess:(JRNPrivacyCheckerGrantedHandler)handler;
 
+//Bluetooth
+- (CBCentralManagerState)bluetoothAuthorization;
+- (void)checkBluetoothAccess;
+- (void)checkBluetoothAccess:(JRNPrivacyCheckerBluetoothHandler)handler;
 @end

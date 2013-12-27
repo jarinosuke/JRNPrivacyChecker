@@ -26,6 +26,8 @@
 		2B5CB4C617D14143002F45B5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5CB4C517D14143002F45B5 /* AdSupport.framework */; };
 		2B5CB4C817D14153002F45B5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5CB4C717D14153002F45B5 /* AssetsLibrary.framework */; };
 		2BC2A8A817F65B14009AA64A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC2A8A717F65B14009AA64A /* AVFoundation.framework */; };
+		774A3443186D6292002C1A95 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 774A3442186D6292002C1A95 /* CoreBluetooth.framework */; };
+		774A3445186D62BF002C1A95 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 774A3444186D62BF002C1A95 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		2B5CB4C517D14143002F45B5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		2B5CB4C717D14153002F45B5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2BC2A8A717F65B14009AA64A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		774A3442186D6292002C1A95 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		774A3444186D62BF002C1A95 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				774A3445186D62BF002C1A95 /* CoreMotion.framework in Frameworks */,
+				774A3443186D6292002C1A95 /* CoreBluetooth.framework in Frameworks */,
 				2BC2A8A817F65B14009AA64A /* AVFoundation.framework in Frameworks */,
 				2B5CB4C817D14153002F45B5 /* AssetsLibrary.framework in Frameworks */,
 				2B5CB4C617D14143002F45B5 /* AdSupport.framework in Frameworks */,
@@ -98,6 +104,8 @@
 		2B5CB49517D13EB8002F45B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				774A3444186D62BF002C1A95 /* CoreMotion.framework */,
+				774A3442186D6292002C1A95 /* CoreBluetooth.framework */,
 				2BC2A8A717F65B14009AA64A /* AVFoundation.framework */,
 				2B5CB4C717D14153002F45B5 /* AssetsLibrary.framework */,
 				2B5CB4C517D14143002F45B5 /* AdSupport.framework */,
