@@ -6,17 +6,16 @@
 //  Copyright (c) 2013 jarinosuke. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <AssetsLibrary/AssetsLibrary.h>
-#import <Accounts/Accounts.h>
-#import <AddressBook/AddressBook.h>
-#import <AdSupport/AdSupport.h>
-#import <CoreLocation/CoreLocation.h>
-#import <EventKit/EventKit.h>
-#import <AVFoundation/AVFoundation.h>
-#import <CoreBluetooth/CoreBluetooth.h>
-#import <CoreMotion/CoreMotion.h>
+@import Foundation;
+@import AssetsLibrary;
+@import Accounts;
+@import AddressBook;
+@import AdSupport;
+@import CoreLocation;
+@import EventKit;
+@import AVFoundation;
+@import CoreBluetooth;
+@import CoreMotion;
 
 typedef void (^JRNPrivacyCheckerPhotoHandler)(ALAuthorizationStatus authorizationStatus);
 typedef void (^JRNPrivacyCheckerAddressBookHandler)(ABAuthorizationStatus authorizationStatus);
@@ -38,7 +37,7 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 @property (nonatomic, copy) JRNPrivacyCheckerBluetoothHandler defaultCheckBluetoothHandler;
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckMotionActivityHandler;
 
-+ (JRNPrivacyChecker *)defaultChecker;
++ (instancetype)defaultChecker;
 
 //Photo
 - (ALAuthorizationStatus)photoAccessAuthorization;

@@ -11,20 +11,15 @@
 static JRNPrivacyChecker *defaultChecker;
 
 @interface JRNPrivacyChecker()
-//@property (nonatomic, strong) CLLocationManager *locationManager;
-//@property (nonatomic, strong) EKEventStore *eventStore;
-//@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
-//@property (nonatomic, assign) ABAddressBookRef addressBook;
-
-@property (nonatomic, strong) ACAccountStore *accountStore;
-@property (nonatomic, strong) CBCentralManager *bluetoothCentralManager;
-@property (nonatomic, strong) CMMotionActivityManager *motionActivityManager;
-@property (nonatomic, strong) NSOperationQueue *motionActivityQueue;
+@property (nonatomic) ACAccountStore *accountStore;
+@property (nonatomic) CBCentralManager *bluetoothCentralManager;
+@property (nonatomic) CMMotionActivityManager *motionActivityManager;
+@property (nonatomic) NSOperationQueue *motionActivityQueue;
 @end
 
 @implementation JRNPrivacyChecker
 
-+ (JRNPrivacyChecker *)defaultChecker
++ (instancetype)defaultChecker
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -33,7 +28,6 @@ static JRNPrivacyChecker *defaultChecker;
     return defaultChecker;
 }
 
-#pragma mark -
 #pragma mark - Accessor
 
 - (ACAccountStore *)accountStore
@@ -60,7 +54,6 @@ static JRNPrivacyChecker *defaultChecker;
     return _motionActivityManager;
 }
 
-#pragma mark -
 #pragma mark - Photo
 
 - (ALAuthorizationStatus)photoAccessAuthorization
@@ -85,7 +78,6 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
-#pragma mark -
 #pragma mark - AddressBook
 
 - (ABAuthorizationStatus)addressBookAuthorization
@@ -110,7 +102,6 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
-#pragma mark -
 #pragma mark - Location
 
 - (CLAuthorizationStatus)locationAuthorization
@@ -135,7 +126,6 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
-#pragma mark -
 #pragma mark - Event
 
 - (EKAuthorizationStatus)eventAuthorizationForType:(EKEntityType)type
@@ -160,7 +150,6 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
-#pragma mark -
 #pragma mark - Social
 
 - (BOOL)twitterAccessGranted
@@ -240,7 +229,6 @@ static JRNPrivacyChecker *defaultChecker;
     return NO;
 }
 
-#pragma mark -
 #pragma mark - Ad Tracking
 
 - (BOOL)advertisingTrackingGranted
@@ -265,12 +253,11 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
-#pragma mark -
 #pragma mark - Microphone
 
 - (void)checkMicrophoneAccess:(JRNPrivacyCheckerGrantedHandler)handler
 {
-    AVAudioSession *audioSession = [[AVAudioSession alloc] init];
+    AVAudioSession *audioSession = [AVAudioSession new];
     
     if ( [audioSession respondsToSelector:@selector(requestRecordPermission:)] ) {
         /*
@@ -303,7 +290,6 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
-#pragma mark -
 #pragma mark - Bluetooth
 
 - (CBCentralManagerState)bluetoothAuthorization
@@ -328,7 +314,6 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
-#pragma mark -
 #pragma mark - Motion
 
 - (void)checkMotionActivityAccess
