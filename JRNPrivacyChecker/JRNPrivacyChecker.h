@@ -16,6 +16,7 @@
 #import <EventKit/EventKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import <CoreMotion/CoreMotion.h>
 
 typedef void (^JRNPrivacyCheckerPhotoHandler)(ALAuthorizationStatus authorizationStatus);
 typedef void (^JRNPrivacyCheckerAddressBookHandler)(ABAuthorizationStatus authorizationStatus);
@@ -35,6 +36,7 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckAdvertisingTrackingHandler;
 @property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckMicrophoneHandler;
 @property (nonatomic, copy) JRNPrivacyCheckerBluetoothHandler defaultCheckBluetoothHandler;
+@property (nonatomic, copy) JRNPrivacyCheckerGrantedHandler defaultCheckMotionActivityHandler;
 
 + (JRNPrivacyChecker *)defaultChecker;
 
@@ -84,4 +86,9 @@ typedef void (^JRNPrivacyCheckerGrantedHandler)(BOOL isGranted);
 - (CBCentralManagerState)bluetoothAuthorization;
 - (void)checkBluetoothAccess;
 - (void)checkBluetoothAccess:(JRNPrivacyCheckerBluetoothHandler)handler;
+
+//Motion
+- (void)checkMotionActivityAccess;
+- (void)checkMotionActivityAccess:(JRNPrivacyCheckerGrantedHandler)handler;
+
 @end

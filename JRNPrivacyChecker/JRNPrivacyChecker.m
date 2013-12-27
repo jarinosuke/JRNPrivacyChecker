@@ -18,6 +18,8 @@ static JRNPrivacyChecker *defaultChecker;
 
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (nonatomic, strong) CBCentralManager *bluetoothCentralManager;
+@property (nonatomic, strong) CMMotionActivityManager *motionActivityManager;
+@property (nonatomic, strong) NSOperationQueue *motionActivityQueue;
 @end
 
 @implementation JRNPrivacyChecker
@@ -48,6 +50,14 @@ static JRNPrivacyChecker *defaultChecker;
         _bluetoothCentralManager = [CBCentralManager new];
     }
     return _bluetoothCentralManager;
+}
+
+- (CMMotionActivityManager *)motionActivityManager
+{
+    if ( !_motionActivityManager ) {
+        _motionActivityManager = [CMMotionActivityManager new];
+    }
+    return _motionActivityManager;
 }
 
 #pragma mark -
@@ -318,5 +328,32 @@ static JRNPrivacyChecker *defaultChecker;
     }
 }
 
+#pragma mark -
+#pragma mark - Motion
+
+- (void)checkMotionActivityAccess
+{
+    [self checkMotionActivityAccess:nil];
+}
+
+- (void)checkMotionActivityAccess:(JRNPrivacyCheckerGrantedHandler)handler
+{
+    self.motionActivityQueue = [NSOperationQueue new];
+    [self.motionActivityManager startActivityUpdatesToQueue:self.motionActivityQueue withHandler:^(CMMotionActivity *activity) {
+        [self.motionActivityManager stopActivityUpdates];
+        
+        if ( handler ) {
+            handler(YES);
+            return;
+        }
+        
+        if ( self.defaultCheckMotionActivityHandler ) {
+            self.defaultCheckMotionActivityHandler(YES);
+        }
+    }];
+    
+    //TODO: How to detect when user denied request.
+    //self.defaultCheckMotionActivityHandler(NO);
+}
 
 @end
